@@ -39,5 +39,5 @@ The following demonstrates the application functionality:
 
 ## Links
 
-- [Github code link](https://github.com/EmadSaeed2/places-itinerary).
+- [Github code link](https://github.com/sam-xander/places-itinerary).
 - [Github live link](https://places.itinerary.art-media.uk).
