@@ -1,139 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
 
-    <title>Places Itinerary Generator</title>
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
 
-  <body>
-    <div class="background-img">
-      <img id="header-image" src="assets/img/london.jpg" alt="Header image" />
-      <div class="background-img-overlay"></div>
-    </div>
-    <div class="wrapper">
-      <header class="header">
-        <div class="logo-wrapper">
-          <h1 class="logo">PLACES</h1>
-          <h2 class="logo-subtext">Itinerary Generator</h2>
-        </div>
-        <div class="icon">
-          <svg
-            id="dark-mode-toggle"
-            onclick="toggleDarkMode()"
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            fill="#121212"
-            class="bi bi-brightness-low-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8.5 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 11a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5-5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm-11 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9.743-4.036a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm-7.779 7.779a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm7.072 0a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707zM3.757 4.464a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707z"
-            />
-          </svg>
-        </div>
-      </header>
-      <div id="inputContainer" class="inputs">
-        <label for="place">Where are you going?</label>
-        <input
-          class="place-input autocomplete"
-          id="place"
-          type="text"
-          placeholder="London, Paris etc."
-        />
-        <p class="error hidden">Please select a city from the dropdown</p>
+  <title>Places Itinerary Generator</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
 
-        <div class="sliderContainer">
-          <label for="budgetCounter">What's your budget?</label>
-          <div class="innerContainer">
-            <p>Budget: <span>£</span><span id="budget"></span></p>
-            <input
-              type="range"
-              min="0"
-              max="500"
-              value="50"
-              step="50"
-              class="slider"
-              id="budgetSlider"
-            />
-            <div class="rangeWrapper">
-              <span>£0</span>
-              <span>£500</span>
-            </div>
+<body>
+  <div class="background-img">
+    <img id="header-image" src="assets/img/london.jpg" alt="Header image" />
+    <div class="background-img-overlay"></div>
+  </div>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo-wrapper">
+        <h1 class="logo">PLACES</h1>
+        <h2 class="logo-subtext">Itinerary Generator</h2>
+      </div>
+      <div class="icon">
+        <svg id="dark-mode-toggle" onclick="toggleDarkMode()" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+          fill="#121212" class="bi bi-brightness-low-fill" viewBox="0 0 16 16">
+          <path
+            d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8.5 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 11a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5-5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm-11 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9.743-4.036a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm-7.779 7.779a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm7.072 0a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707zM3.757 4.464a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707z" />
+        </svg>
+      </div>
+    </header>
+    <div id="inputContainer" class="inputs">
+      <label for="place">Where are you going?</label>
+      <input class="place-input autocomplete" id="place" type="text" placeholder="London, Paris etc." />
+      <p class="error hidden">Please select a city from the dropdown</p>
+
+      <div class="sliderContainer">
+        <label for="budgetCounter">What's your budget?</label>
+        <div class="innerContainer">
+          <p>Budget: <span>£</span><span id="budget"></span></p>
+          <input type="range" min="0" max="500" value="50" step="50" class="slider" id="budgetSlider" />
+          <div class="rangeWrapper">
+            <span>£0</span>
+            <span>£500</span>
           </div>
         </div>
+      </div>
 
-        <div class="sliderContainer">
-          <label for="daysCounter">How many days?</label>
-          <div class="innerContainer">
-            <p>Number of days: <span id="days"></span></p>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value="5"
-              class="slider"
-              id="daysSlider"
-            />
-            <div class="rangeWrapper">
-              <span>1</span>
-              <span>10</span>
-            </div>
+      <div class="sliderContainer">
+        <label for="daysCounter">How many days?</label>
+        <div class="innerContainer">
+          <p>Number of days: <span id="days"></span></p>
+          <input type="range" min="1" max="10" value="5" class="slider" id="daysSlider" />
+          <div class="rangeWrapper">
+            <span>1</span>
+            <span>10</span>
           </div>
         </div>
-
-        <button id="submitBtn">Create Itinerary</button>
       </div>
-      <main class="hidden" id="itinerary-container">
-        <h1 id="itinerary-city"></h1>
-        <div id="itinerary-3-images">
-          <div id="img-one" class="i-image"></div>
-          <div id="img-two" class="i-image"></div>
-          <div id="img-three" class="i-image"></div>
-        </div>
-        <h3 id="wait">Please wait we are building your itinerary...</h3>
-        <div id="itinerary-plan"></div>
-        <button id="back">New Itinerary</button>
-      </main>
 
-      <div class="saved-places">
-        <label>Your itineraries:</label>
-        <div id="saved-inputs">
-          <!-- <button class="saved-place-button">6 days in Paris on £500</button> -->
-        </div>
+      <button id="submitBtn">Create Itinerary</button>
+    </div>
+    <main class="hidden" id="itinerary-container">
+      <h1 id="itinerary-city"></h1>
+      <div id="itinerary-3-images">
+        <div id="img-one" class="i-image"></div>
+        <div id="img-two" class="i-image"></div>
+        <div id="img-three" class="i-image"></div>
+      </div>
+      <h3 id="wait">Please wait we are building your itinerary...</h3>
+      <div id="itinerary-plan"></div>
+      <button id="back">New Itinerary</button>
+    </main>
+
+    <div class="saved-places">
+      <label>Your itineraries:</label>
+      <div id="saved-inputs">
+        <!-- <button class="saved-place-button">6 days in Paris on £500</button> -->
       </div>
     </div>
+  </div>
 
-    <footer>
-      <p>
-        Developed by
-        <a target="_blank" href="https://github.com/EmadSaeed2/">Emad Saeed</a>,
-        <a target="_blank" href="https://github.com/frandsalerno"
-          >Franco Salerno</a
-        >
-        and
-        <a target="_blank" href="https://github.com/sam-xander">Sam Williams</a>
-      </p>
-    </footer>
+  <footer>
+    <p>
+      Developed by
+      <a target="_blank" href="https://emadsaeed.com/">Emad Saeed</a>
+    </p>
+  </footer>
 
-    <script
-      async
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIOY0-UkFYzzpnPcS0lbIDWVKkkQE9S8g&libraries=places&callback=initAutocomplete"
-      async
-      defer
-    ></script>
-    <script src="assets/js/darkmode.js"></script>
-    <script src="assets/js/autocomplete.js"></script>
-    <script src="assets/js/logic.js"></script>
-  </body>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIOY0-UkFYzzpnPcS0lbIDWVKkkQE9S8g&libraries=places&callback=initAutocomplete"
+    async defer></script>
+  <script src="assets/js/darkmode.js"></script>
+  <script src="assets/js/autocomplete.js"></script>
+  <script src="assets/js/logic.js"></script>
+</body>
+
 </html>

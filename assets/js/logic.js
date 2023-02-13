@@ -82,34 +82,68 @@ function updateItineraryObj() {
   // console.log(itineraryObj);
 }
 
+// /* *************************************************************************** */
+// // GET DATA FROM OPEN-AI
+// /* *************************************************************************** */
+// function getDataFromOpenAI() {
+//   var API_KEY = "API-KEY";
+//   var API_URL =
+//     "https://api.openai.com/v1/engines/text-davinci-002/completions";
+//   var prompt = `Give me a short ${itineraryObj.days} days itinerary for to visit ${itineraryObj.city} with £${itineraryObj.budget}. Don't include the departure as last day and have each day separate.`;
+//   var options = {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${API_KEY}`,
+//     },
+//     body: JSON.stringify({
+//       prompt: prompt,
+//       temperature: 0.5,
+//       max_tokens: 4000,
+//     }),
+//   };
+
+//   fetch(API_URL, options)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       var planText = data.choices[0].text.replaceAll("Day", "<br><br>Day");
+//       itineraryObj.itineraryText = `<p>${planText}</p>`;
+//     })
+//     .then(function () {
+//       updateItineraryTextUI();
+//       updateLocalStorage();
+//       createSavedPlaceButton();
+//     })
+//     .catch(function (error) {
+//       console.error(error);
+//     });
+// }
+
 /* *************************************************************************** */
 // GET DATA FROM OPEN-AI
 /* *************************************************************************** */
 function getDataFromOpenAI() {
-  var API_KEY = "API-KEY";
+  var prompt = `Give me a ${itineraryObj.days} days itinerary for to visit ${itineraryObj.city} with £${itineraryObj.budget}. Don't include the departure as last day and have each day separate.`;
   var API_URL =
-    "https://api.openai.com/v1/engines/text-davinci-002/completions";
-  var prompt = `Give me a short ${itineraryObj.days} days itinerary for to visit ${itineraryObj.city} with £${itineraryObj.budget}. Don't include the departure as last day and have each day separate.`;
+    `https://openai-server.art-media.uk/openai-api?prompt="${prompt}"`;
   var options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${API_KEY}`,
-    },
-    body: JSON.stringify({
-      prompt: prompt,
-      temperature: 0.5,
-      max_tokens: 4000,
-    }),
+    }
   };
 
   fetch(API_URL, options)
     .then(function (response) {
       return response.json();
     })
-    .then(function (data) {
-      var planText = data.choices[0].text.replaceAll("Day", "<br><br>Day");
-      itineraryObj.itineraryText = `<p>${planText}</p>`;
+    .then(function (res) {
+      // console.log(res.data)
+      // var planText = res.data.choices[0].text.replaceAll("Day", "<br><br>Day");
+      // itineraryObj.itineraryText = `<p>${planText}</p>`;
+      formatApiResponse(res);
     })
     .then(function () {
       updateItineraryTextUI();
@@ -120,6 +154,25 @@ function getDataFromOpenAI() {
       console.error(error);
     });
 }
+
+/* *************************************************************************** */
+// FORMAT API RESPONSE
+/* *************************************************************************** */
+
+function formatApiResponse(res) {
+  var planText = res.data.choices[0].text
+
+  planText = planText.replaceAll("Day", "<br><br>Day");
+
+  for (let n = 1; n <= itineraryObj.days; n++) {
+    planText = planText.replaceAll(`${n}.`, `<br><br>${n}.`);
+
+    console.log(`${n}.`)
+  }
+
+  itineraryObj.itineraryText = `<p>${planText}</p>`;
+}
+
 
 /* *************************************************************************** */
 // DISPLAY AND UPDATE UI
@@ -196,9 +249,9 @@ newItineraryBtn.addEventListener("click", function (e) {
 var savedInputs = document.querySelector("#saved-inputs");
 
 savedInputs.addEventListener("click", function (e) {
-  if (event.target.classList.contains("saved-place-button")) {
-    let buttons = Array.from(event.target.parentNode.children);
-    let clickedButtonIndex = buttons.indexOf(event.target);
+  if (e.target.classList.contains("saved-place-button")) {
+    let buttons = Array.from(e.target.parentNode.children);
+    let clickedButtonIndex = buttons.indexOf(e.target);
     itineraryObj = itinerariesData[clickedButtonIndex];
     displayItineraryUI();
     updateItineraryImagesUI();
