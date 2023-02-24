@@ -5,6 +5,8 @@ Introducing the ultimate travel planner! With just a few taps, you can input you
 
 From must-see landmarks to hidden gems, our app ensures you make the most of your trip. Say goodbye to the hassle of hours spent researching and hello to an effortless and efficient travel planning experience. Try out our web app today and start planning your next adventure!
 
+![image](https://user-images.githubusercontent.com/99209307/221252529-e9f7e20c-49c9-4ddc-b957-07d5482358e6.png)
+
 ## User Story
 
 ```text
