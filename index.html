@@ -121,7 +121,10 @@
       </p>
     </footer>
 
-    <script id="google-maps-api-script"></script>
+    <script id="google-maps-api-script">
+      // Netlify will replace __GOOGLE_MAPS_API_KEY__ at build time.
+      const googleMapsApiKey = "__GOOGLE_MAPS_API_KEY__";
+    </script>
     <script src="assets/js/darkmode.js"></script>
     <script src="assets/js/autocomplete.js"></script>
     <script src="assets/js/logic.js"></script>

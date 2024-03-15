@@ -4,7 +4,7 @@ var photosArr;
 var placeInput = document.querySelector(".autocomplete");
 var placeName;
 
-const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+const googleMapsApiKey = window.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 // Initialize the google maps autocomplete function and add a listener to it to detect when the place is changed.
 function initAutocomplete() {
