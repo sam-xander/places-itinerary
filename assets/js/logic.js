@@ -125,33 +125,46 @@ function updateItineraryObj() {
 // GET DATA FROM OPEN-AI
 /* *************************************************************************** */
 function getDataFromOpenAI() {
-  var prompt = `Give me a ${itineraryObj.days} days itinerary for to visit ${itineraryObj.city} with £${itineraryObj.budget}. Don't include the departure as last day and have each day separate.`;
-  var API_URL =
-    `https://openai-server.art-media.uk/openai-api?prompt="${prompt}"`;
-  var options = {
+  const prompt = `Give me a ${itineraryObj.days} days itinerary for to visit ${itineraryObj.city} with £${itineraryObj.budget}. Don't include the departure as last day and have each day separate.`;
+
+  // Construct the OpenAI API Endpoint
+  const API_URL =
+    "https://api.openai.com/v1/engines/text-davinci-002/completions";
+
+  // Show a loading state in the UI
+  document.getElementById("itinerary-plan").innerHTML =
+    "Generating itinerary...";
+
+  fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-    }
-  };
-
-  fetch(API_URL, options)
-    .then(function (response) {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Access the key from Netlify
+    },
+    body: JSON.stringify({
+      prompt: prompt,
+      temperature: 0.5,
+      max_tokens: 4000,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        // Check for HTTP errors
+        throw new Error(`HTTP Error: ${response.status}`);
+      }
       return response.json();
     })
-    .then(function (res) {
-      // console.log(res.data)
-      // var planText = res.data.choices[0].text.replaceAll("Day", "<br><br>Day");
-      // itineraryObj.itineraryText = `<p>${planText}</p>`;
+    .then((res) => {
       formatApiResponse(res);
-    })
-    .then(function () {
       updateItineraryTextUI();
       updateLocalStorage();
       createSavedPlaceButton();
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.error(error);
+      // Update the UI to display an error message
+      document.getElementById("itinerary-plan").innerHTML =
+        "Cannot generate itinerary. Please try again.";
     });
 }
 
@@ -160,19 +173,18 @@ function getDataFromOpenAI() {
 /* *************************************************************************** */
 
 function formatApiResponse(res) {
-  var planText = res.data.choices[0].text
+  var planText = res.data.choices[0].text;
 
   planText = planText.replaceAll("Day", "<br><br>Day");
 
   for (let n = 1; n <= itineraryObj.days; n++) {
     planText = planText.replaceAll(`${n}.`, `<br><br>${n}.`);
 
-    console.log(`${n}.`)
+    console.log(`${n}.`);
   }
 
   itineraryObj.itineraryText = `<p>${planText}</p>`;
 }
-
 
 /* *************************************************************************** */
 // DISPLAY AND UPDATE UI
