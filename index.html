@@ -10,11 +10,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-
     <title>Places Itinerary Generator</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
-
   <body>
     <div class="background-img">
       <img id="header-image" src="assets/img/london.jpg" alt="Header image" />
@@ -56,7 +54,7 @@
         <div class="sliderContainer">
           <label for="budgetCounter">What's your budget?</label>
           <div class="innerContainer">
-            <p>Budget: <span>£</span><span id="budget"></span></p>
+            <p>Budget: <span>£</span><span id="budget">50</span></p>
             <input
               type="range"
               min="0"
@@ -76,7 +74,7 @@
         <div class="sliderContainer">
           <label for="daysCounter">How many days?</label>
           <div class="innerContainer">
-            <p>Number of days: <span id="days"></span></p>
+            <p>Number of days: <span id="days">5</span></p>
             <input
               type="range"
               min="1"
@@ -124,7 +122,7 @@
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOXtx-0KbUxtqzQWlcbTrpuVzjUJjJGBE&libraries=places&loading=async&callback=initAutocomplete"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOXtx-0KbUxtqzQWlcbTrpuVzjUJjJGBE&libraries=places&callback=initAutocomplete"
     ></script>
     <script src="/assets/js/autocomplete.js"></script>
     <script src="/assets/js/darkmode.js"></script>
