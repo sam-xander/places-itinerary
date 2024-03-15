@@ -4,13 +4,18 @@ var photosArr;
 var placeInput = document.querySelector(".autocomplete");
 var placeName;
 
+const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+
 // Initialize the google maps autocomplete function and add a listener to it to detect when the place is changed.
 function initAutocomplete() {
+  const googleMapsScript = document.getElementById("google-maps-api-script");
+  googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places&callback=initAutocomplete`; // Include your Netlify API key
+  document.body.appendChild(googleMapsScript); // Insert the script into your DOM
+
+  // Rest of your autocomplete initialization code ...
   autocomplete = new google.maps.places.Autocomplete(
     document.querySelector(".autocomplete"),
-    {
-      types: ["(cities)"],
-    }
+    { types: ["(cities)"] }
   );
   autocomplete.addListener("place_changed", onPlaceChanged);
 }
